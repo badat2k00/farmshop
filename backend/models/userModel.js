@@ -8,9 +8,22 @@ const userSchema = new mongoose.Schema({
         unique : true,
         required : true
     },
+    isGoogleLink:{
+        type:Boolean,
+        default:false
+    },
     password : String,
+    originpassword:String,
     profilePic : String,
     role : String,
+    
+
+    offers: [
+        {
+            offerId: { type: mongoose.Schema.Types.ObjectId,ref:'offer'}, 
+            used: { type: Boolean, default: false }                          
+        }
+    ],
 },{
     timestamps : true
 })

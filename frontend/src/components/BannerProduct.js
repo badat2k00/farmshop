@@ -42,7 +42,7 @@ const BannerProduct = () => {
     }
 
     const preveImage = () =>{
-        if(currentImage != 0){
+        if(currentImage !== 0){
             setCurrentImage(preve => preve - 1)
         }
     }
@@ -55,7 +55,7 @@ const BannerProduct = () => {
             }else{
                 setCurrentImage(0)
             }
-        },5000)
+        },3000)
 
         return ()=> clearInterval(interval)
     },[currentImage])
@@ -76,8 +76,8 @@ const BannerProduct = () => {
                 {
                         desktopImages.map((imageURl,index)=>{
                             return(
-                            <div className='w-full h-full min-w-full min-h-full transition-all' key={imageURl} style={{transform : `translateX(-${currentImage * 100}%)`}}>
-                                <img src={imageURl} className='w-full h-full'/>
+                            <div className='w-full h-full min-w-full min-h-full transition' key={imageURl} style={{transform : `translateX(-${currentImage * 100}%)`}}>
+                                <img src={imageURl} className='w-full h-full' alt=''/>
                             </div>
                             )
                         })
@@ -91,7 +91,7 @@ const BannerProduct = () => {
                         mobileImages.map((imageURl,index)=>{
                             return(
                             <div className='w-full h-full min-w-full min-h-full transition-all' key={imageURl} style={{transform : `translateX(-${currentImage * 100}%)`}}>
-                                <img src={imageURl} className='w-full h-full object-cover'/>
+                                <img src={imageURl} className='w-full h-full object-cover' alt=''/>
                             </div>
                             )
                         })

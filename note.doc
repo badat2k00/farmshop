@@ -1,0 +1,10 @@
+Tạo đơn hàng cho nhân viên 
+Button => post tạo order_empty 
+=>get order_id=>fetch order by id điền vào component ADD order
+
+copy function trong Cart và ADD Order(chỉ vs đơn hàng ko vs cart)
+copy function payment(createpaymentUrl)
+
+
+Tạo phản hồi vs khách hàng 
+mở modal => tạo phản hồi dựa theo order_id 

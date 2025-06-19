@@ -2,10 +2,10 @@ const productModel = require("../../models/productModel")
 
 const getProductDetails = async(req,res)=>{
     try{
-        const { productId } = req.body
+        const  productId  = req.body.productId
 
         const product = await productModel.findById(productId)
-
+        // console.log(product)
         res.json({
             data : product,
             message : "Ok",

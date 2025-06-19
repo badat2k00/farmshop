@@ -4,12 +4,13 @@ async function updateUser(req,res){
     try{
         const sessionUser = req.userId
 
-        const { userId , email, name, role} = req.body
-
+        const { name,profilePic} = req.body
+        console.log(profilePic)
+        console.log(name)
+        console.log(sessionUser)
         const payload = {
-            ...( email && { email : email}),
-            ...( name && { name : name}),
-            ...( role && { role : role}),
+            name:name,
+            profilePic : profilePic
         }
 
         const user = await userModel.findById(sessionUser)
@@ -18,7 +19,7 @@ async function updateUser(req,res){
 
 
 
-        const updateUser = await userModel.findByIdAndUpdate(userId,payload)
+        const updateUser = await userModel.findByIdAndUpdate(user._id,payload,{new:true})
 
         
         res.json({

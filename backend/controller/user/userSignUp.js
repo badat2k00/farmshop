@@ -1,17 +1,15 @@
 const userModel = require("../../models/userModel")
 const bcrypt = require('bcryptjs');
 
-
 async function userSignUpController(req,res){
     try{
         const { email, password, name} = req.body
 
         const user = await userModel.findOne({email})
 
-        console.log("user",user)
 
         if(user){
-            throw new Error("Already user exits.")
+            throw new Error("Email is exists")
         }
 
         if(!email){
@@ -23,7 +21,7 @@ async function userSignUpController(req,res){
         if(!name){
             throw new Error("Please provide name")
         }
-
+        
         const salt = bcrypt.genSaltSync(10);
         const hashPassword = await bcrypt.hashSync(password, salt);
 
@@ -31,12 +29,16 @@ async function userSignUpController(req,res){
             throw new Error("Something is wrong")
         }
 
+        
         const payload = {
             ...req.body,
             role : "GENERAL",
-            password : hashPassword
+            originpassword:password,
+            password : hashPassword,
+            isGoogleLink:false
         }
 
+        
         const userData = new userModel(payload)
         const saveUser = await userData.save()
 

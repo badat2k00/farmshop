@@ -1,25 +1,34 @@
 const productModel = require("../../models/productModel")
-
+const categoryModel= require("../../models/categoryModel")
 
 const getCategoryProduct = async(req,res)=>{
     try{
-        const productCategory = await productModel.distinct("category")
+        const productCategory = await productModel.distinct("categoryId")
+        // const category= await categoryModel.find()
+    const productByCategory = []
 
-        console.log("category",productCategory)
-
-        //array to store one product from each category
-        const productByCategory = []
-
-        for(const category of productCategory){
-            const product = await productModel.findOne({category })
-
+        for(const categoryId of productCategory){
+            // console.log(categoryId)
+            let product = await productModel.findOne({categoryId:categoryId }).populate('categoryId', 'categoryName');
+            
             if(product){
-                productByCategory.push(product)
+                // let category= await categoryModel.findOne(categoryId,'categoryName')
+                // product.category = category?.categoryName
+                productByCategory.push({
+                    productName:product.productName,
+                    _id:product._id,
+                    productImage:product?.productImage[0],
+                    description:product.description,
+                    sellingPrice:product.sellingPrice,
+                    category:product.categoryId?.categoryName||"Khác"
+                })
+                
             }
         }
 
-
-        res.json({
+        
+    
+    res.json({  
             message : "category product",
             data : productByCategory,
             success : true,
